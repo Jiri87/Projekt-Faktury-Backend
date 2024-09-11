@@ -47,6 +47,7 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private InvoiceMapper invoiceMapper;
 
+
     public PersonDTO addPerson(PersonDTO personDTO) {
         PersonEntity entity = personMapper.toEntity(personDTO);
         entity = personRepository.save(entity);
