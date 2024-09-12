@@ -56,7 +56,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     /**
-     *
+     *Detail faktury
      * @param id
      * @return
      */
@@ -70,12 +70,32 @@ public class InvoiceServiceImpl implements InvoiceService{
                 .orElseThrow(() -> new NotFoundException("Invoice with id " + id + " wasn't found in the database."));
     }
 
+//smazání faktury
     @Override
-    public void removeInvoice(long id) {
-        if (!invoiceRepository.existsById(id)) {
-            throw new EntityNotFoundException("Invoice with id " + id + " wasn't found in the database.");
-        }
-            invoiceRepository.deleteById(id);
+    public InvoiceDTO removeInvoice(long id) {
+        InvoiceEntity invoice = invoiceRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Invoice with id " + id + " wasn't found in the database."));
+        InvoiceDTO invoiceDTO = invoiceMapper.toDTO(invoice);
+        invoiceRepository.delete(invoice);
+        return null;
+    }
+
+    //uprava faktury
+
+    @Override
+    public InvoiceDTO editInvoice(InvoiceDTO invoiceDTO, long id) {
+        invoiceDTO.setId(id);
+        InvoiceEntity entity = fetchInvoiceById(id);
+        invoiceMapper.editEntity(invoiceDTO, entity);
+
+        entity.setBuyer(personRepository.getReferenceById(invoiceDTO.getBuyer().getId()));
+        entity.setSeller(personRepository.getReferenceById(invoiceDTO.getSeller().getId()));
+        InvoiceEntity saved = invoiceRepository.save(entity);
+
+        return invoiceMapper.toDTO(saved);
+
 
     }
+
+
 }
