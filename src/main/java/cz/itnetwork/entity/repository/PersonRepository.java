@@ -23,6 +23,7 @@ package cz.itnetwork.entity.repository;
 
 import cz.itnetwork.entity.PersonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -30,4 +31,9 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
 
     List<PersonEntity> findByHidden(boolean hidden);
 
+    @Query(value = "SELECT p.id AS personId, p.name AS personName, COALESCE(SUM(i.price), 0) AS revenue "
+            + "FROM person p "
+            + "LEFT JOIN invoice i ON p.id = i.buyer_id "
+            + "GROUP BY p.id, p.name", nativeQuery = true)
+    List<Object[]> getPersonStatistics();
 }

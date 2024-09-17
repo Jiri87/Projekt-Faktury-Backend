@@ -23,6 +23,7 @@ package cz.itnetwork.controller;
 
 import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.PersonDTO;
+import cz.itnetwork.dto.PersonStatisticsDTO;
 import cz.itnetwork.entity.repository.PersonRepository;
 import cz.itnetwork.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class PersonController {
 
     @Autowired
     private PersonRepository personRepository;
+
+
 
     @PostMapping("/persons")
     public PersonDTO addPerson(@RequestBody PersonDTO personDTO) {
@@ -68,6 +71,11 @@ public class PersonController {
     @GetMapping("/identification/{identificationNumber}/purchases")
     public List<InvoiceDTO> getPurchases(@PathVariable String identificationNumber) {
         return personService.getPurchases(identificationNumber);
+    }
+
+    @GetMapping("/persons/statistics")
+    public List<PersonStatisticsDTO> getPersonStatistics() {
+       return personService.getPersonStatistics();
     }
 
 

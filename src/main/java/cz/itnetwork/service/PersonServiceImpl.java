@@ -22,16 +22,20 @@
 package cz.itnetwork.service;
 
 import cz.itnetwork.dto.InvoiceDTO;
+import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.dto.PersonDTO;
+import cz.itnetwork.dto.PersonStatisticsDTO;
 import cz.itnetwork.dto.mapper.InvoiceMapper;
 import cz.itnetwork.dto.mapper.PersonMapper;
 import cz.itnetwork.entity.PersonEntity;
+import cz.itnetwork.entity.repository.InvoiceRepository;
 import cz.itnetwork.entity.repository.PersonRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +50,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     private InvoiceMapper invoiceMapper;
+
+    @Autowired
+    private InvoiceRepository invoiceRepository;
 
 
     public PersonDTO addPerson(PersonDTO personDTO) {
@@ -118,6 +125,34 @@ public class PersonServiceImpl implements PersonService {
 
     }
 
+    @Override
+
+
+        public List<PersonStatisticsDTO> getPersonStatistics() {
+            List<Object[]> results = personRepository.getPersonStatistics();
+
+            // Převod výsledků na seznam PersonStatisticsDTO
+            return results.stream()
+                    .map(record -> new PersonStatisticsDTO(
+                            (Long) record[0],           // ID osoby
+                            (String) record[1],         // Jméno osoby
+                            (BigDecimal) record[2]      // Příjmy
+                    ))
+                    .collect(Collectors.toList());
+        }
+
+
+          //Object[] record = results.get(0);
+
+
+       // Long totalPersonId = (Long) record [0];
+        //String totalPersonName = (String) record [1];
+       // BigDecimal totalRevenue = (BigDecimal) record [2];
+
+        //return new PersonStatisticsDTO(totalPersonId, totalPersonName, totalRevenue);
+
+
+    }
 
     // endregion
-}
+

@@ -2,18 +2,24 @@ package cz.itnetwork.service;
 
 
 import cz.itnetwork.dto.InvoiceDTO;
+import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.dto.mapper.InvoiceMapper;
 import cz.itnetwork.entity.InvoiceEntity;
 import cz.itnetwork.entity.PersonEntity;
 import cz.itnetwork.entity.repository.InvoiceRepository;
 import cz.itnetwork.entity.repository.PersonRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.type.descriptor.java.BigDecimalJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
+
+
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
@@ -26,6 +32,8 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Autowired
     private PersonRepository personRepository;
+
+
 
     /**
      *
@@ -96,6 +104,28 @@ public class InvoiceServiceImpl implements InvoiceService{
 
 
     }
+
+    @Override
+    public InvoiceStatisticsDTO getInvoiceStatistics() {
+        List<Object[]> result = invoiceRepository.getInvoiceStatistics();
+        Object[] record = result.get(0);
+
+        BigDecimal totalInvoices = BigDecimal.valueOf(((Number) record[0]).longValue()); // Pokud je to Long nebo Integer
+        BigDecimal totalBuyers = BigDecimal.valueOf(((Number) record[1]).longValue());   // Pokud je to Long nebo Integer
+        BigDecimal totalAmount = BigDecimal.valueOf(((Number)  record[2]).longValue()); // Očekáváme, že celková částka je BigDecimal
+
+        return new InvoiceStatisticsDTO(totalInvoices, totalBuyers, totalAmount);
+
+    }
+
+
+
+
+
+
+
+       //return new InvoiceStatisticsDTO((BigDecimal) record[0], (BigDecimal) record[1] , (BigDecimal) record[2]);
+
 
 
 }
