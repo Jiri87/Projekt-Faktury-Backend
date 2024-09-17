@@ -1,6 +1,7 @@
 package cz.itnetwork.controller;
 
 import cz.itnetwork.dto.InvoiceDTO;
+import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.entity.repository.InvoiceRepository;
 import cz.itnetwork.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class InvoiceController {
     }
 
     @GetMapping("/invoices")
-    public List<InvoiceDTO>getInvoices(){
+    public List<InvoiceDTO>getInvoices() {
         return invoiceService.getAll();
     }
 
@@ -44,6 +45,11 @@ public class InvoiceController {
    @PutMapping({"/invoices/{invoiceId}"})
     public InvoiceDTO editInvoice( @RequestBody InvoiceDTO invoiceDTO, @PathVariable Long invoiceId) {
         return invoiceService.editInvoice(invoiceDTO, invoiceId);
+    }
+
+    @GetMapping("/invoices/statistics")
+    public InvoiceStatisticsDTO getInvoiceStatistics() {
+        return invoiceService.getInvoiceStatistics();
     }
 
 
