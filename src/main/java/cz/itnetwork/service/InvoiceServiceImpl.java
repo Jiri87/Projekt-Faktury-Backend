@@ -6,23 +6,25 @@ import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.dto.mapper.InvoiceMapper;
 import cz.itnetwork.entity.InvoiceEntity;
 import cz.itnetwork.entity.PersonEntity;
+import cz.itnetwork.entity.filter.InvoiceFilter;
 import cz.itnetwork.entity.repository.InvoiceRepository;
+import cz.itnetwork.entity.repository.InvoiceSpecification;
 import cz.itnetwork.entity.repository.PersonRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.type.descriptor.java.BigDecimalJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
-
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
 
 
 @Service
-public class InvoiceServiceImpl implements InvoiceService{
+public class InvoiceServiceImpl implements InvoiceService {
 
     @Autowired
     private InvoiceMapper invoiceMapper;
@@ -34,9 +36,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     private PersonRepository personRepository;
 
 
-
     /**
-     *
      * @param invoiceDTO
      * @return
      */
@@ -51,20 +51,25 @@ public class InvoiceServiceImpl implements InvoiceService{
         return invoiceMapper.toDTO(entity);
     }
 
-    /**
-     *
-     * @return
-     */
+// výpis faktur + filtrace
+
+
     @Override
-    public List<InvoiceDTO> getAll() {
-        return invoiceRepository.findAll()
+    public List<InvoiceDTO> getAll(InvoiceFilter invoiceFilter) {
+        InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
+
+
+        return invoiceRepository.findAll(invoiceSpecification, PageRequest.of(0, invoiceFilter.getLimit()))
                 .stream()
                 .map(i -> invoiceMapper.toDTO(i))
                 .collect(Collectors.toList());
+
+
     }
 
     /**
-     *Detail faktury
+     * Detail faktury
+     *
      * @param id
      * @return
      */
@@ -78,7 +83,7 @@ public class InvoiceServiceImpl implements InvoiceService{
                 .orElseThrow(() -> new NotFoundException("Invoice with id " + id + " wasn't found in the database."));
     }
 
-//smazání faktury
+    //smazání faktury
     @Override
     public InvoiceDTO removeInvoice(long id) {
         InvoiceEntity invoice = invoiceRepository.findById(id)
@@ -112,20 +117,17 @@ public class InvoiceServiceImpl implements InvoiceService{
 
         BigDecimal totalInvoices = BigDecimal.valueOf(((Number) record[0]).longValue()); // Pokud je to Long nebo Integer
         BigDecimal totalBuyers = BigDecimal.valueOf(((Number) record[1]).longValue());   // Pokud je to Long nebo Integer
-        BigDecimal totalAmount = BigDecimal.valueOf(((Number)  record[2]).longValue()); // Očekáváme, že celková částka je BigDecimal
+        BigDecimal totalAmount = BigDecimal.valueOf(((Number) record[2]).longValue()); // Očekáváme, že celková částka je BigDecimal
 
         return new InvoiceStatisticsDTO(totalInvoices, totalBuyers, totalAmount);
 
     }
-
-
-
-
-
-
-
-       //return new InvoiceStatisticsDTO((BigDecimal) record[0], (BigDecimal) record[1] , (BigDecimal) record[2]);
-
-
-
 }
+
+
+
+
+
+
+       //return new InvoiceStatisticsDTO((BigDecimal) record[0], (BigDecimal) record[1] , (BigDecimal) record[2]
+
