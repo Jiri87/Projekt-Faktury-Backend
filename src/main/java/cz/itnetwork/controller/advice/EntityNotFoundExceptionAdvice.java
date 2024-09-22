@@ -1,5 +1,6 @@
 package cz.itnetwork.controller.advice;
 
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,6 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.webjars.NotFoundException;
 
+
+/**
+ * Zachytávání vyjímky pro nenalezení entity v databázi
+ */
 @ControllerAdvice
 public class EntityNotFoundExceptionAdvice {
 

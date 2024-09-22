@@ -22,6 +22,10 @@
  */
 package cz.itnetwork.constant;
 
+
+/**
+ * Contries definuje dvě hodnoty CZECHIA a SLOVAKIA
+ */
 public enum Countries {
     CZECHIA, SLOVAKIA
 }

@@ -21,12 +21,17 @@
  */
 package cz.itnetwork.entity.repository;
 
+
 import cz.itnetwork.entity.PersonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
 
+
+/**
+ * Obsahuje pro přístup a manipulaci s daty osob v databázi.
+ *
+ */
 public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
 
     List<PersonEntity> findByHidden(boolean hidden);

@@ -21,14 +21,17 @@
  */
 package cz.itnetwork.entity;
 
+
 import cz.itnetwork.constant.Countries;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Tabulka osoby
+ */
 @Entity(name = "person")
 @Getter
 @Setter
@@ -36,53 +39,53 @@ public class PersonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long id;  // Primární klíč
 
     @Column(nullable = false)
-    private String name;
+    private String name;  // Jméno osoby
 
     @Column(nullable = false)
-    private String identificationNumber;
+    private String identificationNumber;  // Identifikační číslo
 
-    private String taxNumber;
-
-    @Column(nullable = false)
-    private String accountNumber;
+    private String taxNumber;  // Daňové číslo
 
     @Column(nullable = false)
-    private String bankCode;
-
-    private String iban;
+    private String accountNumber;  // Číslo účtu
 
     @Column(nullable = false)
-    private String telephone;
+    private String bankCode;  // Bankovní číslo
+
+    private String iban;  // Číslo IBAN
 
     @Column(nullable = false)
-    private String mail;
+    private String telephone;  // Telefon osoby
 
     @Column(nullable = false)
-    private String street;
+    private String mail;  // Email osoby
 
     @Column(nullable = false)
-    private String zip;
+    private String street;  // Ulice
 
     @Column(nullable = false)
-    private String city;
+    private String zip;  // Číslo popisné
+
+    @Column(nullable = false)
+    private String city;  // Město
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Countries country;
+    private Countries country;  // Země
 
-    private String note;
+    private String note;  // Poznámka
 
     private boolean hidden = false;
 
 
     @OneToMany(mappedBy = "buyer")
-    private List<InvoiceEntity> purchases;
+    private List<InvoiceEntity> purchases;  // Seznam faktur, které osoba zakoupila
 
     @OneToMany(mappedBy = "seller")
-    private List<InvoiceEntity> sales;
+    private List<InvoiceEntity> sales;  // Seznam faktur, které osoby prodala
 
 
 }

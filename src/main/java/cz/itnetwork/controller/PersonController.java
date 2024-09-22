@@ -21,6 +21,7 @@
  */
 package cz.itnetwork.controller;
 
+
 import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.PersonDTO;
 import cz.itnetwork.dto.PersonStatisticsDTO;
@@ -28,8 +29,8 @@ import cz.itnetwork.entity.repository.PersonRepository;
 import cz.itnetwork.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -41,38 +42,69 @@ public class PersonController {
     @Autowired
     private PersonRepository personRepository;
 
-
-
+    /**
+     * Přidání nové osoby
+     * @param personDTO DTO objekt s informacemi o osobě, které budou přidány.
+     * @return Nově přidaná osoba jako objekt PersonDTO.
+     */
     @PostMapping("/persons")
     public PersonDTO addPerson(@RequestBody PersonDTO personDTO) {
         return  personService.addPerson(personDTO);
     }
 
+    /**
+     * Získání seznamu všech osob
+     * @return Seznam všech osob jako List<PersonDTO>.
+     */
     @GetMapping("/persons")
     public List<PersonDTO> getPersons() {
         return personService.getAll();
     }
 
+    /**
+     * Odstraní osobu na základě jejího ID.
+     * @param personId ID osoby, která má být odstraněna.
+     */
     @DeleteMapping("/persons/{personId}")
     public void deletePerson(@PathVariable Long personId) {
         personService.removePerson(personId);
     }
 
+    /**
+     * Získá osobu na základě jejího ID.
+     * @param personId ID osoby, která má být nalezena.
+     * @return Data nalezené osoby ve formátu PersonDTO.
+     */
     @GetMapping("/persons/{personId}")
     public PersonDTO getPersonById(@PathVariable Long personId){
        return personService.getPersonById(personId);
     }
 
+    /**
+     * Upraví o osobě na základě jejího ID
+     * @param personId personId ID osoby, jejíž údaje mají být upraveny.
+     * @param personDTO personDTO Nové údaje osoby ve formátu PersonDTO.
+     * @return Aktualizované údaje osoby ve formátu PersonDTO.
+     */
     @PutMapping({"/persons/{personId}"})
     public PersonDTO editPerson(@PathVariable Long personId, @RequestBody PersonDTO personDTO) {
         return personService.editPerson(personId, personDTO);
     }
 
+    /**
+     * Získá seznam faktur spojeným s daným identifikačním číslem
+     * @param identificationNumber Identifikační číslo osoby
+     * @return Seznam faktur ve formátu InvoiceDTO.
+     */
     @GetMapping("/identification/{identificationNumber}/purchases")
     public List<InvoiceDTO> getPurchases(@PathVariable String identificationNumber) {
         return personService.getPurchases(identificationNumber);
     }
 
+    /**
+     * Získá statistiky osob ve formátu PersonStatisticsDTO.
+     * @return Seznam statistik osob.
+     */
     @GetMapping("/persons/statistics")
     public List<PersonStatisticsDTO> getPersonStatistics() {
        return personService.getPersonStatistics();

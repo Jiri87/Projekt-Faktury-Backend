@@ -21,43 +21,48 @@
  */
 package cz.itnetwork.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.itnetwork.constant.Countries;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonDTO {
 
     @JsonProperty("_id")
-    private Long id;
+    private Long id;  // Identifikátor osoby
 
-    private String name;
+    private String name;  // Jméno osoby
 
-    private String identificationNumber;
+    private String identificationNumber;  // Identifikační číslo osoby
 
-    private String taxNumber;
+    private String taxNumber;  // Daňové identifikační číslo
 
-    private String accountNumber;
+    private String accountNumber;  // Číslo bankovního účtu
 
-    private String bankCode;
+    private String bankCode;  // Kód banky
 
-    private String iban;
+    private String iban;  // Mezinárodní číslo bankovního účtu
 
-    private String telephone;
+    private String telephone;  // Telefonní číslo
 
-    private String mail;
+    private String mail;  // Emailová adresa
 
-    private String street;
+    private String street;  // Číslo ulice
 
-    private String zip;
+    private String zip;  // Poštovní směrovací číslo
 
-    private String city;
+    private String city;  // Město
 
-    private Countries country;
+    private Countries country;  // Stát
 
-    private String note;
+    private String note;  // Poznámka
 }

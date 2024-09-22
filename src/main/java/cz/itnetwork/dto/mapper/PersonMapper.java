@@ -21,15 +21,29 @@
  */
 package cz.itnetwork.dto.mapper;
 
+
 import cz.itnetwork.dto.PersonDTO;
 import cz.itnetwork.entity.PersonEntity;
 import org.mapstruct.Mapper;
 
 
+/**
+ *
+ */
 @Mapper(componentModel = "spring")
 public interface PersonMapper {
 
+    /**
+     * Převádí DTO na entitu.
+     * @param source objekt PersonDTO.
+     * @return objekt PersonEntity.
+     */
     PersonEntity toEntity(PersonDTO source);
 
+    /**
+     * Převádí entitu na DTO.
+     * @param source objekt PersonEntity.
+     * @return objekt PersonDTO.
+     */
     PersonDTO toDTO(PersonEntity source);
 }

@@ -1,13 +1,17 @@
 package cz.itnetwork.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
+
+/**
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,26 +19,26 @@ import java.time.LocalDate;
 public class InvoiceDTO {
 
     @JsonProperty("_id")
-    private Long id;
+    private Long id;  // Identifikátor faktury
 
-    private int invoiceNumber;
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate issued;
+    private int invoiceNumber;  // Číslo faktury
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dueDate;
+    private LocalDate issued;  // Datum vystavení faktury
 
-    private String product;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dueDate;  // Datum splatnosti faktury
 
-    private int price;
+    private String product;  // Název produktu na faktuře
 
-    private int vat;
+    private int price; // Cena produktu na faktuře
 
-    private String note;
+    private int vat;  // Sazba DPH na faktuře
 
-    private PersonDTO seller;
+    private String note;  // Poznámka na faktuře
 
-    private PersonDTO buyer;
+    private PersonDTO seller;  // Prodejce faktury
+
+    private PersonDTO buyer;  // Kupující na faktuře
 
 }

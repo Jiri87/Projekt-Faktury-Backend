@@ -9,10 +9,14 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Vytváření dotazů na základě InvoiceFilter
+ * Obsahuje filtr minimální ceny, maximalní ceny, produktu, ID odběratele, ID dodavatele
+ */
 @RequiredArgsConstructor
 public class InvoiceSpecification implements Specification<InvoiceEntity> {
     private final InvoiceFilter invoiceFilter;
@@ -29,7 +33,6 @@ public class InvoiceSpecification implements Specification<InvoiceEntity> {
             predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("price"), invoiceFilter.getMaxPrice()));
         }
 
-        // Přidání dalších filtrů na základě product, buyerID a sellerID
         if (invoiceFilter.getProduct() != null && !invoiceFilter.getProduct().isEmpty()) {
             predicates.add(criteriaBuilder.equal(root.get("product"), invoiceFilter.getProduct()));
         }
