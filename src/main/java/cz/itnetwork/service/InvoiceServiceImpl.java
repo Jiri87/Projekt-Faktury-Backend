@@ -133,5 +133,5 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 
 
-       //return new InvoiceStatisticsDTO((BigDecimal) record[0], (BigDecimal) record[1] , (BigDecimal) record[2]
+
 
