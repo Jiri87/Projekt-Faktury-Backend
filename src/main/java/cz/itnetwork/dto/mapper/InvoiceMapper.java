@@ -9,7 +9,7 @@ import org.mapstruct.MappingTarget;
 
 
 /**
- *
+ *Rozhraní pro převod dat z Entity do DTO a naopak
  */
 @Mapper(componentModel = "spring")
 public interface InvoiceMapper {
