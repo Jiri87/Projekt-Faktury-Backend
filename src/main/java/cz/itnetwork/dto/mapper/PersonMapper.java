@@ -28,7 +28,7 @@ import org.mapstruct.Mapper;
 
 
 /**
- *
+ * Rozhraní pro převod dat z Entity do DTO a naopak
  */
 @Mapper(componentModel = "spring")
 public interface PersonMapper {
