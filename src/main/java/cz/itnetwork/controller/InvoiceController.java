@@ -29,8 +29,8 @@ public class InvoiceController {
      * @return Vytvořená faktura ve formátu InvoiceDTO
      */
     @PostMapping("/invoices")
-    public InvoiceDTO addInvoice(@RequestBody InvoiceDTO invoiceDTO) {
-        return invoiceService.addInvoice(invoiceDTO);
+    public InvoiceDTO newInvoice(@RequestBody InvoiceDTO invoiceDTO) {
+        return invoiceService.newInvoice(invoiceDTO);
     }
 
     /**

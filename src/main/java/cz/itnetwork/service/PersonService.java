@@ -13,7 +13,7 @@ import java.util.List;
 public interface PersonService {
 
 
-    PersonDTO addPerson(PersonDTO personDTO);  // Přidá novou osobu a vrátí její DTO
+    PersonDTO newPerson(PersonDTO personDTO);  // Přidá novou osobu a vrátí její DTO
 
     void removePerson(long id);  // Odstraní osobu podle jejího ID
 

@@ -40,7 +40,7 @@ public class InvoiceServiceImpl implements InvoiceService {
      * @return Vrátí DTO pro nově vytvořenou fakturu
      */
     @Override
-    public InvoiceDTO addInvoice(InvoiceDTO invoiceDTO) {
+    public InvoiceDTO newInvoice(InvoiceDTO invoiceDTO) {
         InvoiceEntity entity = invoiceMapper.toEntity(invoiceDTO);
         PersonEntity buyer = personRepository.getReferenceById(invoiceDTO.getBuyer().getId());
         PersonEntity seller = personRepository.getReferenceById(invoiceDTO.getSeller().getId());

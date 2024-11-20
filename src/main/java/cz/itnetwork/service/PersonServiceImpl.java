@@ -60,7 +60,7 @@ public class PersonServiceImpl implements PersonService {
      * @param personDTO DTO objekt osoby, který obsahuje potřebné informace.
      * @return DTO objekt nově přidané osoby.
      */
-    public PersonDTO addPerson(PersonDTO personDTO) {
+    public PersonDTO newPerson(PersonDTO personDTO) {
         PersonEntity entity = personMapper.toEntity(personDTO);
         entity = personRepository.save(entity);
 

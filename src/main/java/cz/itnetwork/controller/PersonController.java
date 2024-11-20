@@ -48,8 +48,8 @@ public class PersonController {
      * @return Nově přidaná osoba jako objekt PersonDTO.
      */
     @PostMapping("/persons")
-    public PersonDTO addPerson(@RequestBody PersonDTO personDTO) {
-        return  personService.addPerson(personDTO);
+    public PersonDTO newPerson(@RequestBody PersonDTO personDTO) {
+        return personService.newPerson(personDTO);
     }
 
     /**

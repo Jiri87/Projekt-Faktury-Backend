@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface InvoiceService {
 
-    InvoiceDTO addInvoice (InvoiceDTO invoiceDTO);  // Přidává novou fakturu do systému
+    InvoiceDTO newInvoice (InvoiceDTO invoiceDTO);  // Přidává novou fakturu do systému
 
     List<InvoiceDTO> getAll(InvoiceFilter invoiceFilter);  // Vrací seznam všech faktur splňující kritéria filtru
 
